@@ -2,9 +2,9 @@ import colors from 'vuetify/es5/util/colors'
 
 export default {
 	theme: {
-		dark: true,
+		dark: false,
 		themes: {
-			dark: {
+			light: {
 				primary: colors.amber.darken3,
 				accent: colors.grey.darken3,
 				secondary: colors.blue.darken3,
