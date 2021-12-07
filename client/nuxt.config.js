@@ -21,7 +21,7 @@ export default {
 	axios: {},
 	vuetify: {
 		customVariables: ['~/assets/styles/variables.scss'],
-		optionsPath: '~/configs/vuetify.config',
+		optionsPath: '~/configs/vuetify.config.ts',
 	},
 
 	// Build Configuration: https://go.nuxtjs.dev/config-build
