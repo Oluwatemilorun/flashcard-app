@@ -1,11 +1,25 @@
 <template>
-	<div class="flashcard" :class="{ flip: flipped }">
-		<v-card max-width="500px" height="250px" color="primary" class="front">
+	<div class="flashcard" :class="{ flip: focused ? flipped : false }">
+		<v-card
+			:width="width"
+			:color="focused ? 'primary' : 'white'"
+			elevation="5"
+			max-width="500px"
+			height="250px"
+			class="front"
+		>
 			<v-row no-gutters justify="center" align="center" class="fill-height pa-5">
 				<div class="text-h3 font-weight-light">{{ front }}</div>
 			</v-row>
 		</v-card>
-		<v-card max-width="500px" height="250px" color="secondary" class="back">
+		<v-card
+			:width="width"
+			elevation="5"
+			max-width="500px"
+			height="250px"
+			color="secondary"
+			class="back"
+		>
 			<v-row no-gutters justify="center" align="center" class="fill-height pa-5">
 				<div class="body-1 font-weight-light text-align white--text">{{ back }}</div>
 			</v-row>
@@ -26,6 +40,16 @@ export default {
 		},
 		flipped: {
 			type: Boolean,
+			default: false,
+		},
+		width: {
+			type: String,
+			required: false,
+			default: undefined,
+		},
+		focused: {
+			type: Boolean,
+			required: false,
 			default: false,
 		},
 	},
