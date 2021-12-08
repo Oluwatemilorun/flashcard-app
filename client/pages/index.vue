@@ -1,5 +1,14 @@
 <template>
 	<v-container fill-height>
+		<div class="top-bar py-5">
+			<v-row no-gutters justify="center" align="center">
+				<v-btn outlined to="/backdoor/cards">
+					<v-icon left>mdi-cog</v-icon>
+					Manage cards
+				</v-btn>
+			</v-row>
+		</div>
+
 		<v-row no-gutters justify="center" align="center" class="fill-height">
 			<v-col v-if="cards.length >= 1" cols="10" md="8" lg="6" class="flashcard-wrapper">
 				<div
@@ -125,6 +134,12 @@ export default Vue.extend({
 	margin: 0 auto
 
 	transition: all 100ms ease-in-out
+
+.top-bar
+	position: absolute
+	left: 0
+	right: 0
+	top: 0
 
 .controls-wrapper
 	position: absolute
