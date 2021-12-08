@@ -6,7 +6,7 @@
 			</v-toolbar>
 			<v-list nav dark>
 				<v-list-item to="/backdoor/cards"> My cards </v-list-item>
-				<v-list-item to="/backdoor/cards"> Bin settings </v-list-item>
+				<v-list-item to="/backdoor/bin"> Bin settings </v-list-item>
 			</v-list>
 		</v-navigation-drawer>
 
