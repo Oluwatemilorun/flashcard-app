@@ -14,7 +14,7 @@ export default {
 		link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
 	},
 	css: [],
-	plugins: [],
+	plugins: ['~/plugins/inject-owner.ts'],
 	components: true,
 	buildModules: ['@nuxt/typescript-build', '@nuxtjs/vuetify'],
 	modules: ['@nuxtjs/axios'],

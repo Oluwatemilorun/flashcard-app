@@ -8,7 +8,7 @@
 			<ul>
 				<li>
 					<span class="font-weight-bold">Current Bin</span>
-					<span>{{ card.currentBin.bin }}</span>
+					<span>{{ card.current_bin.bin }}</span>
 				</li>
 				<li>
 					<span class="font-weight-bold">Will appear</span>
@@ -16,7 +16,7 @@
 				</li>
 				<li>
 					<span class="font-weight-bold">No. incorrect</span>
-					<span>{{ card.noOfIncorrect }}</span>
+					<span>{{ card.no_incorrect }}</span>
 				</li>
 			</ul>
 		</v-card-subtitle>
@@ -24,25 +24,30 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
+import Vue, { PropType } from 'vue'
 import Moment from 'moment'
+import { Flashcard } from '~/types/interfaces'
 
 export default Vue.extend({
 	name: 'my-card',
 	props: {
 		card: {
-			type: Object,
+			type: Object as PropType<Flashcard>,
 			required: true,
 		},
 	},
 	computed: {
 		nextAppearance() {
-			const M = Moment(this.card.binUpdatedAt)
-			const interval = this.card.currentBin.interval
+			const M = Moment(this.card.bin_updated_at)
+			const interval = this.card.current_bin.interval
 
-			M.add(interval)
+			if (interval < 0) {
+				M.add(interval)
 
-			return M.fromNow()
+				return M.fromNow()
+			} else {
+				return 'Never'
+			}
 		},
 	},
 })

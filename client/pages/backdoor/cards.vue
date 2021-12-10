@@ -15,7 +15,10 @@
 				</v-row>
 			</v-col>
 			<v-col cols="12">
-				<v-row>
+				<v-row v-if="loadingCards" justify="center" align="center">
+					<v-progress-circular size="48" indeterminate />
+				</v-row>
+				<v-row v-else>
 					<template v-for="(card, index) in cards">
 						<v-col :key="index" cols="12" sm="2" md="3" lg="4">
 							<my-card :card="card"></my-card>
@@ -28,7 +31,7 @@
 		<v-dialog v-model="addNewDialog" persistent max-width="600px">
 			<v-card>
 				<v-card-title>
-					<span class="text-h5 px-3">Add new flashcard</span>
+					<span class="text-h5 px-3">Create flashcard</span>
 				</v-card-title>
 				<v-card-text>
 					<v-container>
@@ -63,11 +66,20 @@
 				</v-card-actions>
 			</v-card>
 		</v-dialog>
+
+		<v-snackbar v-model="snackbar" :timeout="3000">
+			{{ snackbarText }}
+
+			<template #action="{ attrs }">
+				<v-btn color="accent" text v-bind="attrs" @click="snackbar = false"> Close </v-btn>
+			</template>
+		</v-snackbar>
 	</v-container>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
+import { Flashcard } from '~/types/interfaces'
 
 export default Vue.extend({
 	layout: 'backdoor',
@@ -76,23 +88,16 @@ export default Vue.extend({
 			addNewDialog: false,
 			addNewForm: false,
 			addNewLoader: false,
+			loadingCards: true,
+			snackbar: false,
+			snackbarText: '',
 			phrase: '',
 			definition: '',
-			cards: [
-				{
-					phrase: 'Word 1',
-					status: undefined,
-					noOfIncorrect: 3,
-					binUpdatedAt: '2021-12-08T15:35:56.697Z',
-					currentBin: {
-						bin: 3,
-						interval: 5000000,
-					},
-					definition:
-						'Laboris nulla pariatur quis commodo quis veniam velit quis nostrud officia. Labore id mollit id commodo amet ad non sint cillum reprehenderit veniam. Do qui dolore occaecat nostrud non tempor commodo duis. Sit aliqua incididunt sint elit ad commodo. Veniam mollit irure aliquip elit minim aute eiusmod nisi id minim ex deserunt ut. Tempor est ullamco culpa sint quis nisi culpa do reprehenderit.',
-				},
-			],
+			cards: [] as Flashcard[],
 		}
+	},
+	mounted() {
+		this.getCards()
 	},
 	methods: {
 		close() {
@@ -106,6 +111,23 @@ export default Vue.extend({
 		resetForm() {
 			this.phrase = ''
 			this.definition = ''
+		},
+		showSnackbar(message: string) {
+			this.snackbarText = message
+			this.snackbar = true
+		},
+		async getCards() {
+			this.loadingCards = true
+			try {
+				const { data } = await this.$axios.get('/v1/cards')
+				const cards = data.payload as Flashcard[]
+
+				this.cards = cards
+			} catch (error) {
+				this.showSnackbar(error.response ? error.response.message : error.message)
+			} finally {
+				this.loadingCards = false
+			}
 		},
 	},
 })
