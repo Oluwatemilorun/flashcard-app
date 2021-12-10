@@ -13,11 +13,10 @@ def create_app(config_name: str) -> Flask:
     app.config.from_object(config[config_name])
 
     # Note: unsafe, better set origins to known hosts
-    CORS(app, resources={r"/api/*": {"origins": "*"}})
+    CORS(app, resources={r"/api/*": {"origins": "*"}, r"/v1/*": {"origins": "*"}})
 
     init_error_handlers(app)
     init_db(app)
     init_api(app)
 
     return app
-
