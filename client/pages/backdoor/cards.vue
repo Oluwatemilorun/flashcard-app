@@ -7,7 +7,7 @@
 						<h3 class="text-h4">My Cards</h3>
 					</v-col>
 					<v-col cols="4" class="flex-shrink-0">
-						<v-btn outlined>
+						<v-btn outlined @click="addNewDialog = true">
 							<v-icon>mdi-plus</v-icon>
 							Create New Card
 						</v-btn>
@@ -24,6 +24,45 @@
 				</v-row>
 			</v-col>
 		</v-row>
+
+		<v-dialog v-model="addNewDialog" persistent max-width="600px">
+			<v-card>
+				<v-card-title>
+					<span class="text-h5 px-3">Add new flashcard</span>
+				</v-card-title>
+				<v-card-text>
+					<v-container>
+						<v-form v-model="addNewForm">
+							<v-row>
+								<v-col cols="12">
+									<v-text-field
+										label="Phrase"
+										required
+										outlined
+										:rules="[(v) => !!v || 'Phrase is required']"
+									></v-text-field>
+								</v-col>
+								<v-col cols="12">
+									<v-textarea
+										label="Definition"
+										required
+										outlined
+										:rules="[(v) => !!v || 'Definition is required']"
+									></v-textarea>
+								</v-col>
+							</v-row>
+						</v-form>
+					</v-container>
+				</v-card-text>
+				<v-card-actions class="px-10 pb-4">
+					<v-spacer></v-spacer>
+					<v-btn text :disabled="addNewLoader" @click="close()"> Close </v-btn>
+					<v-btn outlined :disabled="!addNewForm" :loading="addNewLoader" @click="saveCard()">
+						Save Flashcard
+					</v-btn>
+				</v-card-actions>
+			</v-card>
+		</v-dialog>
 	</v-container>
 </template>
 
@@ -34,6 +73,11 @@ export default Vue.extend({
 	layout: 'backdoor',
 	data() {
 		return {
+			addNewDialog: false,
+			addNewForm: false,
+			addNewLoader: false,
+			phrase: '',
+			definition: '',
 			cards: [
 				{
 					phrase: 'Word 1',
@@ -49,6 +93,20 @@ export default Vue.extend({
 				},
 			],
 		}
+	},
+	methods: {
+		close() {
+			this.addNewDialog = false
+			this.addNewForm = false
+			this.resetForm()
+		},
+		saveCard() {
+			this.close()
+		},
+		resetForm() {
+			this.phrase = ''
+			this.definition = ''
+		},
 	},
 })
 </script>
