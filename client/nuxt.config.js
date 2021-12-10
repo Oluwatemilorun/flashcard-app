@@ -18,7 +18,9 @@ export default {
 	components: true,
 	buildModules: ['@nuxt/typescript-build', '@nuxtjs/vuetify'],
 	modules: ['@nuxtjs/axios'],
-	axios: {},
+	axios: {
+		baseUrl: process.env.BASE_URL,
+	},
 	vuetify: {
 		customVariables: ['~/assets/styles/variables.scss'],
 		optionsPath: '~/configs/vuetify.config.ts',
