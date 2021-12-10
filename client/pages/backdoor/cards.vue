@@ -39,6 +39,7 @@
 							<v-row>
 								<v-col cols="12">
 									<v-text-field
+										v-model="phrase"
 										label="Phrase"
 										required
 										outlined
@@ -47,6 +48,7 @@
 								</v-col>
 								<v-col cols="12">
 									<v-textarea
+										v-model="definition"
 										label="Definition"
 										required
 										outlined
@@ -79,6 +81,7 @@
 
 <script lang="ts">
 import Vue from 'vue'
+import { setOwnerId } from '~/utils/localstorage'
 import { Flashcard } from '~/types/interfaces'
 
 export default Vue.extend({
@@ -105,8 +108,25 @@ export default Vue.extend({
 			this.addNewForm = false
 			this.resetForm()
 		},
-		saveCard() {
-			this.close()
+		async saveCard() {
+			this.addNewLoader = true
+			try {
+				const { data } = await this.$axios.post('/v1/cards', {
+					phrase: this.phrase,
+					definition: this.definition,
+				})
+
+				const card = data.payload as Flashcard
+
+				setOwnerId(card.owner)
+
+				this.cards.push(card)
+				this.close()
+			} catch (error) {
+				this.showSnackbar(error.response ? error.response.message : error.message)
+			} finally {
+				this.addNewLoader = false
+			}
 		},
 		resetForm() {
 			this.phrase = ''

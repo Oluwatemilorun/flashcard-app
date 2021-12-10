@@ -1,6 +1,6 @@
 <template>
 	<v-card>
-		<v-card-title>{{ card.phrase }}</v-card-title>
+		<v-card-title class="text-capitalize">{{ card.phrase }}</v-card-title>
 		<v-card-text>
 			{{ card.definition }}
 		</v-card-text>
@@ -16,7 +16,7 @@
 				</li>
 				<li>
 					<span class="font-weight-bold">No. incorrect</span>
-					<span>{{ card.no_incorrect }}</span>
+					<span>{{ card.no_wrong}}</span>
 				</li>
 			</ul>
 		</v-card-subtitle>
@@ -38,13 +38,14 @@ export default Vue.extend({
 	},
 	computed: {
 		nextAppearance() {
-			const M = Moment(this.card.bin_updated_at)
+			const m = Moment(this.card.bin_updated_at)
 			const interval = this.card.current_bin.interval
 
-			if (interval < 0) {
-				M.add(interval)
+			if (interval >= 0) {
+				m.add(interval)
+				const now = m.fromNow()
 
-				return M.fromNow()
+				return now.toLowerCase().includes('ago') ? 'Now' : now
 			} else {
 				return 'Never'
 			}
