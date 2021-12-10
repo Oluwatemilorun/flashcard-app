@@ -1,6 +1,19 @@
 version: '3'
 
 services:
+  client:
+    restart: always
+    build:
+      context: "./client"
+      dockerfile: Dockerfile
+    command: yarn dev
+    volumes:
+      - ./client:/client
+    ports:
+      - "3000:3000"
+    environment:
+      BASE_URL: 'http://localhost:5000/'
+
   server:
     restart: always
     build:
