@@ -10,6 +10,7 @@ from .dao import (
     get_all_cards,
     create_new_card,
     get_card,
+    get_flash_cards,
     mark_card_correct,
     mark_card_incorrect,
 )
@@ -44,6 +45,20 @@ class CardResource(Resource):
         card = create_new_card(owner=owner, card=schema.load(body))
 
         return success(data=schema.dump(card), message="Card created successfully.")
+
+
+class FlashCardResource(Resource):
+    def get(self):
+        owner = request.headers.get("x-owner-id")
+        cards = []
+
+        if owner:
+            try:
+                cards = get_flash_cards(UUID(owner))
+            except ValueError:
+                raise ValidationError("Invalid owner ID", "header")
+
+        return success(data=schema.dump(cards, many=True))
 
 
 class CorrectCardResource(Resource):
