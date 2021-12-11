@@ -16,7 +16,7 @@
 				</li>
 				<li>
 					<span class="font-weight-bold">No. incorrect</span>
-					<span>{{ card.no_wrong}}</span>
+					<span>{{ card.no_wrong }}</span>
 				</li>
 			</ul>
 		</v-card-subtitle>
@@ -24,7 +24,8 @@
 </template>
 
 <script lang="ts">
-import Vue, { PropType } from 'vue'
+import Vue from 'vue'
+import type { PropType } from 'vue'
 import Moment from 'moment'
 import { Flashcard } from '~/types/interfaces'
 
@@ -39,7 +40,7 @@ export default Vue.extend({
 	computed: {
 		nextAppearance() {
 			const m = Moment(this.card.bin_updated_at)
-			const interval = this.card.current_bin.interval
+			const interval = (this.card as Flashcard).current_bin.interval
 
 			if (interval >= 0) {
 				m.add(interval)

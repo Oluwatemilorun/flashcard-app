@@ -89,7 +89,7 @@ import { Flashcard } from '~/types/interfaces'
 export default Vue.extend({
 	data() {
 		return {
-			loadingCards: false,
+			loadingCards: true,
 			showDefinition: false,
 			snackbar: false,
 			snackbarText: '',
@@ -136,7 +136,7 @@ export default Vue.extend({
 			const currentTime = new Date().getTime()
 
 			if (willShow > currentTime) {
-				console.log('card will be ready in', willShow - currentTime, card)
+				// console.log('card will be ready in', willShow - currentTime, card)
 				setTimeout(() => {
 					this.cards = [card, ...this.cards]
 				}, willShow - currentTime)
@@ -229,14 +229,14 @@ export default Vue.extend({
 
 @-webkit-keyframes fade-out-right
 	0%
-	-webkit-transform: translateX(0)
-	transform: translateX(0)
-	opacity: 1
+		-webkit-transform: translateX(0)
+		transform: translateX(0)
+		opacity: 1
 
 	100%
-	-webkit-transform: translateX(50px)
-	transform: translateX(50px)
-	opacity: 0
+		-webkit-transform: translateX(50px)
+		transform: translateX(50px)
+		opacity: 0
 
 @keyframes fade-out-right
 	0%
@@ -251,14 +251,14 @@ export default Vue.extend({
 
 @-webkit-keyframes fade-out-left
 	0%
-	-webkit-transform: translateX(0)
-	transform: translateX(0)
-	opacity: 1
+		-webkit-transform: translateX(0)
+		transform: translateX(0)
+		opacity: 1
 
 	100%
-	-webkit-transform: translateX(-50px)
-	transform: translateX(-50px)
-	opacity: 0
+		-webkit-transform: translateX(-50px)
+		transform: translateX(-50px)
+		opacity: 0
 
 @keyframes fade-out-left
 	0%
