@@ -1,21 +1,26 @@
-# A Simple Starter Flask App
+# Flashcard App
 
-> Built with Python + Flask + PostgreSQL + SQLAlchemy; to easily develop a solid framework for REST APIs
+>In overview, the user creates vocabulary flashcards she wants to study. When reviewing a flashcard, the user can choose whether she got it right or not. Each time she gets it right, the time for the card to reappear is increased. If she gets it wrong, the card is reset to reappear much sooner. This is a basic spaced repetition learning model.
+>Built with Python + Flask + Nuxt + PostgreSQL + SQLAlchemy; to easily develop a solid framework for REST APIs
 
 ## Requiremnts
-
+- Node.js
 - Python 3.7
 - Docker
 
 ## Dependencies
+- ### Client
+	- [Nuxt.js 2.15](https://nuxtjs.org/)
+	- [Typescript](https://www.typescriptlang.org/)
 
-- [Flask 2.0.2](http://flask.pocoo.org/)
-- [PostgreSQL 13](https://www.postgresql.org/)
-- [SQLAlchemy 1.4](https://www.sqlalchemy.org/) for database ORM
-- [Marshmallow 3.14](https://marshmallow.readthedocs.io/) for validation and serialization
-- [Flask Restful 0.3](https://flask-restful.readthedocs.io/) for wrapping REST APIs
-- Linting with [mypy](http://mypy-lang.org/), [flake8](http://flake8.pycqa.org/en/latest/) and [black](https://github.com/ambv/black)
-- Code formatting with [black](https://github.com/ambv/black)
+- ### Server
+	- [Flask 2.0.2](http://flask.pocoo.org/)
+	- [PostgreSQL 13](https://www.postgresql.org/)
+	- [SQLAlchemy 1.4](https://www.sqlalchemy.org/) for database ORM
+	- [Marshmallow 3.14](https://marshmallow.readthedocs.io/) for validation and serialization
+	- [Flask Restful 0.3](https://flask-restful.readthedocs.io/) for wrapping REST APIs
+	- Linting with [mypy](http://mypy-lang.org/), [flake8](http://flake8.pycqa.org/en/latest/) and [black](https://github.com/ambv/black)
+	- Code formatting with [black](https://github.com/ambv/black)
 
 ## Development
 Docker Compose was used to avoid manually installing PostgreSQL database and to easily setup, run and develop the server and APIs
@@ -28,6 +33,7 @@ $ make start
 $ make init-db
 
 ```
+- Client: `http://localhost:3000`
 - Server: `http://localhost:5000`
 - Database: `http://localhost:5432`
 - Database Admin ([pgadmin4](https://www.pgadmin.org/docs/pgadmin4/latest/getting_started.html)): `http://localhost:5050`
