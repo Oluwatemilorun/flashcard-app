@@ -6,3 +6,4 @@ class Config(BaseConfig):
 
     DEBUG = os.environ.get("DEBUG", "False") == "True"
     JSONIFY_PRETTYPRINT_REGULAR = DEBUG
+    SQLALCHEMY_DATABASE_URI = os.getenv("SQLALCHEMY_DATABASE_URI")
