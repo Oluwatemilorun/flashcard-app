@@ -39,7 +39,7 @@ export default Vue.extend({
 	},
 	computed: {
 		nextAppearance() {
-			const m = Moment(this.card.bin_updated_at)
+			const m = Moment.utc(this.card.bin_updated_at)
 			const interval = (this.card as Flashcard).current_bin.interval
 
 			if (interval >= 0) {

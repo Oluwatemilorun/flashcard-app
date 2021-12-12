@@ -133,7 +133,7 @@ export default Vue.extend({
 		updateCards(card: Flashcard) {
 			const interval = card.current_bin.interval
 			const willShow = new Date(card.bin_updated_at).getTime() + interval
-			const currentTime = new Date().getTime()
+			const currentTime = Date.now() + new Date().getTimezoneOffset() * 60000
 
 			if (willShow > currentTime) {
 				// console.log('card will be ready in', willShow - currentTime, card)
@@ -170,7 +170,7 @@ export default Vue.extend({
 					const card = cards[i]
 					const interval = card.current_bin.interval
 					const willShow = new Date(card.bin_updated_at).getTime() + interval
-					const currentTime = new Date().getTime()
+					const currentTime = Date.now() + new Date().getTimezoneOffset() * 60000
 
 					if (willShow <= currentTime) {
 						// console.log('card is ready', card)
